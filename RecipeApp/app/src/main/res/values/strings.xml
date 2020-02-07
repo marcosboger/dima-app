@@ -10,4 +10,7 @@
     <string name="password_hint_confirmation">Password Confirmation</string>
     <string name="register">Register</string>
     <string name="log_out">Log Out</string>
+    <string name="facebook_app_id">2839343272793994</string>
+    <string name="fb_login_protocol_scheme">fb2839343272793994</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
 </resources>
