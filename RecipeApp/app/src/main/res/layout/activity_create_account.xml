@@ -4,16 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <ImageView
-        android:id="@+id/logo_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/logo"
-        app:srcCompat="@mipmap/logo" />
+    tools:context=".CreateAccountActivity">
 
     <EditText
         android:id="@+id/email_text"
@@ -41,26 +34,26 @@
         android:inputType="textPassword"
         android:text="@string/password" />
 
-    <Button
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/password_text_confirmation"
+        android:layout_width="300sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/sign_in"
-        android:onClick="onSignInClicked"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:ems="10"
+        android:hint="@string/password_hint_confirmation"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:text="@string/password" />
 
     <Button
-        android:id="@+id/create_account_button"
+        android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:onClick="onCreateAccountClicked"
-        android:text="@string/create_account" />
+        android:onClick="onRegisterClicked"
+        android:text="@string/register" />
 </LinearLayout>

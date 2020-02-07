@@ -16,66 +16,44 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.w3c.dom.Text;
-
-public class MainActivity extends AppCompatActivity {
+public class CreateAccountActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private TextView email_text, password_text;
+    TextView email_text, password_text, password_confirmation_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create_account);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        //Get email and password reference
         email_text = findViewById(R.id.email_text);
         password_text = findViewById(R.id.password_text);
+        password_confirmation_text = findViewById(R.id.password_text_confirmation);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(this, MainMenuActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    public void onCreateAccountClicked(View view){
-        Intent intent = new Intent(this, CreateAccountActivity.class);
-        startActivity(intent);
-    }
-
-    public void onSignInClicked(View view){
-        //Check if email valid
-        //Check if password valid
-        Log.d("Main Activity", email_text.getText().toString());
-        Log.d("Main Activity", password_text.getText().toString());
-        mAuth.signInWithEmailAndPassword(email_text.getText().toString(), password_text.getText().toString())
+    public void onRegisterClicked(View view){
+        //Check email
+        //Check password
+        mAuth.createUserWithEmailAndPassword(email_text.getText().toString(), password_text.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(MainActivity.this, "Authentication success.",
-                                    Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
+                            Toast.makeText(CreateAccountActivity.this, "Authentication success.",
+                                    Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CreateAccountActivity.this, MainMenuActivity.class);
                             startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                            Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
+
+                        // ...
                     }
                 });
     }
-
-
-
-
 }
