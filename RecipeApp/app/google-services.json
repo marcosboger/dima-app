@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "238921018245",
+    "firebase_url": "https://recipe-app-e52a0.firebaseio.com",
+    "project_id": "recipe-app-e52a0",
+    "storage_bucket": "recipe-app-e52a0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238921018245:android:4b7b476a6388138dbd72ec",
+        "android_client_info": {
+          "package_name": "com.marcosboger.recipeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238921018245-in4id5gfu7ft4iqegb608f8r4qcgrij6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.marcosboger.recipeapp",
+            "certificate_hash": "d822f31783f1010fbaace276bc2742c9dbd2aeac"
+          }
+        },
+        {
+          "client_id": "238921018245-k18bsru14825mscsuthmln1idhv7f8hf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHee2o7k2ziDZrFrumTWb2PkHOcdRy7qg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238921018245-k18bsru14825mscsuthmln1idhv7f8hf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
