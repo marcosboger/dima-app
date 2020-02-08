@@ -20,6 +20,12 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -27,16 +33,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private TextView email_text, password_text;
     private CallbackManager mCallbackManager;
 
+    private GoogleSignInClient mGoogleSignInClient;
+
     private Button mFacebookButton;
+
+    private int RC_SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +57,13 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        //Get email and password reference
-        email_text = findViewById(R.id.email_text);
-        password_text = findViewById(R.id.password_text);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         // Initialize Facebook Login button
         mFacebookButton = findViewById(R.id.login_facebook_button);
@@ -85,14 +99,30 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+
+        findViewById(R.id.login_google_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Pass the activity result back to the Facebook SDK
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+        else{
+            // Pass the activity result back to the Facebook SDK
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
@@ -105,34 +135,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onCreateAccountClicked(View view){
-        Intent intent = new Intent(this, CreateAccountActivity.class);
+    public void onContinueEmailClicked(View view){
+        Intent intent = new Intent(MainActivity.this, LoginEmailActivity.class);
         startActivity(intent);
-    }
-
-    public void onSignInClicked(View view){
-        //Check if email valid
-        //Check if password valid
-        Log.d("Main Activity", email_text.getText().toString());
-        Log.d("Main Activity", password_text.getText().toString());
-        mAuth.signInWithEmailAndPassword(email_text.getText().toString(), password_text.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(MainActivity.this, "Authentication success.",
-                                    Toast.LENGTH_SHORT).show();
-                            mFacebookButton.setEnabled(true);
-                            LogIn();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(MainActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            mFacebookButton.setEnabled(true);
-                        }
-                    }
-                });
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -163,6 +168,32 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, MainMenuActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            FirebaseGoogleAuth(account);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w("Main Activity", "signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+    private void FirebaseGoogleAuth(GoogleSignInAccount acc){
+        AuthCredential authCredential = GoogleAuthProvider.getCredential(acc.getIdToken(), null);
+        mAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    LogIn();
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 

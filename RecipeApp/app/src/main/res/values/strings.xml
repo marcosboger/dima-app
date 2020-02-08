@@ -2,8 +2,8 @@
     <string name="app_name">Recipe App</string>
     <string name="email_address"></string>
     <string name="password">""</string>
-    <string name="sign_in">SIGN IN</string>
-    <string name="create_account">Create Account</string>
+    <string name="continue_with_email">Continue with Email</string>
+    <string name="continue_with_google">Continue with Google</string>
     <string name="logo">Logo</string>
     <string name="email_hint">E-mail</string>
     <string name="password_hint">Password</string>
@@ -13,4 +13,11 @@
     <string name="facebook_app_id">2839343272793994</string>
     <string name="fb_login_protocol_scheme">fb2839343272793994</string>
     <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="wrong_e_mail_or_password">Wrong e-mail or password</string>
+    <string name="email_required">E-mail required</string>
+    <string name="password_required">Password required</string>
+    <string name="password_confirmation_error">Password and password confirmation don\'t match</string>
+    <string name="error_creating_account">An error happened while creating the account</string>
 </resources>

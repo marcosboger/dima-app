@@ -14,57 +14,59 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class CreateAccountActivity extends AppCompatActivity {
+public class LoginEmailActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    TextView email_text, password_text, password_confirmation_text, wrong_register;
+    private TextView email_text, password_text, wrong_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
+        setContentView(R.layout.activity_login_email);
+
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
+        //Get email and password reference
         email_text = findViewById(R.id.email_text);
         password_text = findViewById(R.id.password_text);
-        password_confirmation_text = findViewById(R.id.password_text_confirmation);
-        wrong_register = findViewById(R.id.wrong_register);
+        wrong_login = findViewById(R.id.wrong_login);
     }
 
-    public void onRegisterClicked(View view){
+    public void onSignInClicked(View view){
         if(email_text.getText().toString().matches("")){
-            wrong_register.setText(R.string.email_required);
+            wrong_login.setText(R.string.email_required);
             return;
         }
         if(password_text.getText().toString().matches("")){
-            wrong_register.setText(R.string.password_required);
+            wrong_login.setText(R.string.password_required);
             return;
         }
-        if(password_confirmation_text.getText().toString().matches("") ||
-                !password_confirmation_text.getText().toString().matches(password_text.getText().toString())){
-            wrong_register.setText(R.string.password_confirmation_error);
-            return;
-        }
-        mAuth.createUserWithEmailAndPassword(email_text.getText().toString(), password_text.getText().toString())
+        mAuth.signInWithEmailAndPassword(email_text.getText().toString(), password_text.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(CreateAccountActivity.this, "Authentication success.",
+                            Toast.makeText(LoginEmailActivity.this, "Log in successful",
                                     Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(CreateAccountActivity.this, MainMenuActivity.class);
-                            startActivity(intent);
+                            LogIn();
                         } else {
-                            // If sign in fails, display a message to the user.
-                            wrong_register.setText(R.string.error_creating_account);
+                            wrong_login.setText(R.string.wrong_e_mail_or_password);
                         }
-
-                        // ...
                     }
                 });
+    }
+
+    public void onCreateAccountClicked(View view){
+        Intent intent = new Intent(this, CreateAccountActivity.class);
+        startActivity(intent);
+    }
+
+    private void LogIn(){
+        Intent intent = new Intent(LoginEmailActivity.this, MainMenuActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
