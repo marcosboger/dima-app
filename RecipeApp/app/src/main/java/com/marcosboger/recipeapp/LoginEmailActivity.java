@@ -61,6 +61,7 @@ public class LoginEmailActivity extends AppCompatActivity {
 
     public void onCreateAccountClicked(View view){
         Intent intent = new Intent(this, CreateAccountActivity.class);
+        intent.putExtra("email", email_text.getText().toString());
         startActivity(intent);
     }
 
