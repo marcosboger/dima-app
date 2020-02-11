@@ -11,9 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".RecipeFlowActivity"
+            android:parentActivityName=".MainMenuActivity" />
         <activity
-        android:name=".LoginEmailActivity"
-        android:parentActivityName=".MainActivity" />
+            android:name=".LoginEmailActivity"
+            android:parentActivityName=".MainActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
