@@ -57,6 +57,11 @@ public class MainMenuActivity extends AppCompatActivity {
         mDatabase.addListenerForSingleValueEvent(nameListener);
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     public void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment);
