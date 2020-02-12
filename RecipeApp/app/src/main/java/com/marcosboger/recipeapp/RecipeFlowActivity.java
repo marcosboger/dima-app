@@ -40,10 +40,10 @@ public class RecipeFlowActivity extends AppCompatActivity {
 
     private Bitmap playButtonBitmap;
     private boolean paused = true;
-    private static int numberSteps = -1;
-    private static int j = 0;
-    private static Bitmap[] bitmapArray = new Bitmap[20];
-    private static boolean bitmapFinished = false;
+    private int numberSteps = -1;
+    private int j = 0;
+    private Bitmap[] bitmapArray = new Bitmap[20];
+    private boolean bitmapFinished = false;
     private int step = 0;
     private String[] recipeText = new String[20];
     private String[] recipeImage = new String[20];
@@ -86,17 +86,6 @@ public class RecipeFlowActivity extends AppCompatActivity {
                     recipeIsFinal[i] = steps.child(Integer.toString(i)).child("final").getValue(String.class);
                     new RetrieveFeedTask().execute(recipeImage[i]);
                 }
-                if(j == numberSteps){
-                    nextStepButton.setEnabled(true);
-                    image.setImageBitmap(bitmapArray[0]);
-                    text.setText(recipeText[0]);
-                    if(recipeVideo[0].equals("none")){
-                        video.setVisibility(View.GONE);
-                        startButton.setVisibility(View.GONE);
-                    }
-                    else
-                        video.setVideoURI(Uri.parse(recipeVideo[0]));
-                }
             }
 
             @Override
@@ -105,17 +94,6 @@ public class RecipeFlowActivity extends AppCompatActivity {
             }
         };
         mDatabase.addListenerForSingleValueEvent(textListener);
-        if(j == numberSteps){
-            nextStepButton.setEnabled(true);
-            image.setImageBitmap(bitmapArray[0]);
-            text.setText(recipeText[0]);
-            if(recipeVideo[0].equals("none")){
-                video.setVisibility(View.GONE);
-                startButton.setVisibility(View.GONE);
-            }
-            else
-                video.setVideoURI(Uri.parse(recipeVideo[0]));
-        }
     }
 
     public void onStartVideoClicked(View view){

@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RecipeFlowActivity"
-            android:parentActivityName=".MainMenuActivity" />
+            android:parentActivityName=".MainMenuActivity"
+            android:noHistory="true"/>
         <activity
             android:name=".LoginEmailActivity"
             android:parentActivityName=".MainActivity" />
