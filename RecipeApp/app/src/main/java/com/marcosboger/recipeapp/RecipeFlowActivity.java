@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -94,6 +96,15 @@ public class RecipeFlowActivity extends AppCompatActivity {
             }
         };
         mDatabase.addListenerForSingleValueEvent(textListener);
+
+        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                startButton.setEnabled(true);
+                startButton.setText(getString(R.string.start_video));
+            }
+        });
     }
 
     public void onStartVideoClicked(View view){
@@ -122,6 +133,8 @@ public class RecipeFlowActivity extends AppCompatActivity {
             startButton.setVisibility(View.GONE);
         }
         else{
+            startButton.setEnabled(false);
+            startButton.setText(getString(R.string.loading_video));
             startButton.setVisibility(View.VISIBLE);
             video.setVideoURI(Uri.parse(recipeVideo[step]));
             video.setVisibility(View.VISIBLE);
@@ -143,6 +156,8 @@ public class RecipeFlowActivity extends AppCompatActivity {
             startButton.setVisibility(View.GONE);
         }
         else{
+            startButton.setEnabled(false);
+            startButton.setText(getString(R.string.loading_video));
             startButton.setVisibility(View.VISIBLE);
             video.setVideoURI(Uri.parse(recipeVideo[step]));
             video.setVisibility(View.VISIBLE);

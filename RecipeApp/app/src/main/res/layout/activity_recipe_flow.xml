@@ -14,6 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:layout_weight="0"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +27,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:layout_weight="4"
+        android:src="@drawable/ic_get_app_24px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +40,7 @@
         android:layout_marginBottom="200dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="Loading..."
+        android:text="Loading Recipe..."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -76,6 +78,7 @@
         android:layout_gravity="center"
         android:onClick="onStartVideoClicked"
         android:text="@string/start_video"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/recipe_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RecipeFlowActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainMenuActivity"
             android:noHistory="true"/>
         <activity
+            android:screenOrientation="portrait"
             android:name=".LoginEmailActivity"
             android:parentActivityName=".MainActivity" />
 
@@ -44,11 +46,14 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainMenuActivity" />
+        <activity android:name=".MainMenuActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CreateAccountActivity"
-            android:parentActivityName=".LoginEmailActivity" />
-        <activity android:name=".MainActivity">
+            android:parentActivityName=".LoginEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
