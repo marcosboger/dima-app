@@ -34,4 +34,5 @@
     <string name="loading_video">Loading video...</string>
     <string name="go_back_to_recipes">Go back to recipes</string>
     <string name="start_recipe">Start Recipe</string>
+    <string name="welcome_to_recipe_app_n_press_on_recipes_to_find_new_recipes">Welcome to Recipe App\nPress on Recipes to find new recipes</string>
 </resources>

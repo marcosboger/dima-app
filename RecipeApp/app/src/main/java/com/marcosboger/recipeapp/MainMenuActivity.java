@@ -25,7 +25,32 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.net.URL;
 
-public class MainMenuActivity extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity implements RecipeListFragment.OnListFragmentInteractionListener {
+
+    @Override
+    public void onListFragmentInteraction(Recipe.RecipeItem item) {
+        recipeNumber = item.id;
+        mDatabase = FirebaseDatabase.getInstance().getReference("recipes").child(recipeNumber);
+
+        ValueEventListener textListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                name = dataSnapshot.child("name").getValue(String.class);
+                difficulty = dataSnapshot.child("difficulty").getValue(String.class);
+                time = dataSnapshot.child("time").getValue(String.class);
+                serving = dataSnapshot.child("serving").getValue(String.class);
+                ingredients = dataSnapshot.child("ingredients").getValue(String.class);
+                textImage =  dataSnapshot.child("image").getValue(String.class);
+                openFragment(RecipeOverviewFragment.newInstance(recipeNumber, name, difficulty, time, serving, ingredients, textImage));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Main Menu Activity", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        mDatabase.addListenerForSingleValueEvent(textListener);
+    }
 
     private BottomNavigationView bottomNavigation;
     private FirebaseAuth mAuth;
@@ -37,11 +62,12 @@ public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Recipe.initialize();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        openFragment(RecipesFragment.newInstance("", ""));
+        openFragment(WelcomeFragment.newInstance("brigadeiro", "brigadeiro"));
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(mAuth.getUid());
 
@@ -76,7 +102,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.navigation_recipes:
-                            openFragment(RecipesFragment.newInstance("", ""));
+                            openFragment(RecipeListFragment.newInstance(1));
                             return true;
                         case R.id.navigation_favorites:
                             openFragment(FavoritesFragment.newInstance("", ""));
@@ -96,7 +122,7 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     public void onGoBackToRecipesClicked(View view){
-        openFragment(RecipesFragment.newInstance("", ""));
+        openFragment(RecipeListFragment.newInstance(1));
     }
 
     public void onStartRecipeClicked(View view){
@@ -106,7 +132,7 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     public void onRecipeClicked(View view){
-        recipeNumber = "0";
+        recipeNumber = "1";
         mDatabase = FirebaseDatabase.getInstance().getReference("recipes").child(recipeNumber);
 
         ValueEventListener textListener = new ValueEventListener() {
@@ -128,5 +154,4 @@ public class MainMenuActivity extends AppCompatActivity {
         };
         mDatabase.addListenerForSingleValueEvent(textListener);
     }
-
 }
