@@ -10,16 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import com.facebook.FacebookActivity;
-import com.facebook.ProfileManager;
-import com.facebook.ProfileTracker;
-import com.facebook.applinks.FacebookAppLinkResolver;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -94,7 +87,8 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     public void onStartRecipeClicked(View view){
-        Intent intent = new Intent(MainMenuActivity.this, RecipeFlowActivity.class);
+        //Intent intent = new Intent(MainMenuActivity.this, RecipeFlowActivity.class);
+        Intent intent = new Intent(MainMenuActivity.this, RecipeOverviewActivity.class);
         intent.putExtra("recipe_name", "brigadeiro");
         startActivity(intent);
     }
