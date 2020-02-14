@@ -56,14 +56,14 @@ public class RecipeFlowActivity extends AppCompatActivity {
     ImageView image;
     VideoView video;
     DataSnapshot steps;
+    private String recipeNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final String recipeName;
         DatabaseReference mDatabase;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_flow);
-        recipeName = getIntent().getStringExtra("recipe_name");
+        recipeNumber = getIntent().getStringExtra("recipe_number");
         lastStepButton = findViewById(R.id.last_step_button);
         text = findViewById(R.id.recipe_text);
         nextStepButton = findViewById(R.id.next_step_button);
@@ -74,7 +74,7 @@ public class RecipeFlowActivity extends AppCompatActivity {
         nextStepButton.setEnabled(false);
         playButtonBitmap = getBitmap(getResources().getDrawable(R.drawable.ic_play_arrow_24px));
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("recipes").child(recipeName).child("steps");
+        mDatabase = FirebaseDatabase.getInstance().getReference("recipes").child(recipeNumber).child("steps");
 
         ValueEventListener textListener = new ValueEventListener() {
             @Override

@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,12 +23,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.URL;
+
 public class MainMenuActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigation;
     private FirebaseAuth mAuth;
     private String userName;
     private DatabaseReference mDatabase;
+    private String difficulty, time, serving, ingredients, textImage, name;
+    private String recipeNumber;
+    private Bitmap image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +95,38 @@ public class MainMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onGoBackToRecipesClicked(View view){
+        openFragment(RecipesFragment.newInstance("", ""));
+    }
+
     public void onStartRecipeClicked(View view){
-        //Intent intent = new Intent(MainMenuActivity.this, RecipeFlowActivity.class);
-        Intent intent = new Intent(MainMenuActivity.this, RecipeOverviewActivity.class);
-        intent.putExtra("recipe_name", "brigadeiro");
+        Intent intent = new Intent(MainMenuActivity.this, RecipeFlowActivity.class);
+        intent.putExtra("recipe_number", recipeNumber);
         startActivity(intent);
     }
 
+    public void onRecipeClicked(View view){
+        recipeNumber = "0";
+        mDatabase = FirebaseDatabase.getInstance().getReference("recipes").child(recipeNumber);
+
+        ValueEventListener textListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                name = dataSnapshot.child("name").getValue(String.class);
+                difficulty = dataSnapshot.child("difficulty").getValue(String.class);
+                time = dataSnapshot.child("time").getValue(String.class);
+                serving = dataSnapshot.child("serving").getValue(String.class);
+                ingredients = dataSnapshot.child("ingredients").getValue(String.class);
+                textImage =  dataSnapshot.child("image").getValue(String.class);
+                openFragment(RecipeOverviewFragment.newInstance(recipeNumber, name, difficulty, time, serving, ingredients, textImage));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("Main Menu Activity", "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+        mDatabase.addListenerForSingleValueEvent(textListener);
+    }
 
 }
