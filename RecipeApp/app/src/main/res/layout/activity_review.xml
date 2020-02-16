@@ -38,6 +38,8 @@
         android:layout_height="wrap_content"
         android:text="Skip it"
         android:onClick="onSkipItClicked"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/holo_blue_dark"
         tools:layout_editor_absoluteX="164dp"
         tools:layout_editor_absoluteY="300dp" />
 </LinearLayout>

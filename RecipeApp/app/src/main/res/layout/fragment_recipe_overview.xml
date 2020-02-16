@@ -1,133 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainMenuActivity"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-
-    <TextView
-        android:id="@+id/recipe_name_overview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="15dp"
-        android:textAlignment="center"
-        android:textColor="@android:color/primary_text_light"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textAllCaps="true"/>
+        android:orientation="vertical"
+        tools:context=".MainMenuActivity">
 
-    <ImageView
-        android:id="@+id/recipe_image_overview"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_gravity="center"
-        android:layout_weight="1" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1">
-
-        <ImageView
-            android:id="@+id/warning_image_overview"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:src="@drawable/ic_warning_24px" />
-
-        <ImageView
-            android:id="@+id/timer_image_overview"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:src="@drawable/ic_timer_24px" />
-
-        <ImageView
-            android:id="@+id/people_image_overview"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:src="@drawable/ic_people_24px" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1">
 
         <TextView
-            android:id="@+id/difficulty_text_overview"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
+            android:id="@+id/recipe_name_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="15dp"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@android:color/primary_text_light"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+        <RatingBar
+            android:id="@+id/ratingBar_overview"
+            android:numStars="5"
             android:layout_gravity="center"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:text=""
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/time_text_overview"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:text=""
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/people_text_overview"
-            android:layout_width="110dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:text=""
-            android:textAlignment="center" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/recipe_text_overview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="9"
-        android:text="" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="20">
-
-        <Button
-            android:id="@+id/go_back_recipes_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/go_back_to_recipes"
-            android:onClick="onGoBackToRecipesClicked"/>
+            android:isIndicator="true"
+            android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/start_recipe_button"
+        <TextView
+            android:id="@+id/number_reviews_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/recipe_image_overview"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:layout_weight="1" />
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/start_recipe"
-            android:onClick="onStartRecipeClicked"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/warning_image_overview"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/ic_warning_24px" />
+
+            <ImageView
+                android:id="@+id/timer_image_overview"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/ic_timer_24px" />
+
+            <ImageView
+                android:id="@+id/people_image_overview"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/ic_people_24px" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/difficulty_text_overview"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:gravity="center_horizontal"
+                android:text=""
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/time_text_overview"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:text=""
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/people_text_overview"
+                android:layout_width="110dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:text=""
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recipe_text_overview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="9"
+            android:text="" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="20"
+            android:layout_marginBottom="100dp">
+
+            <Button
+                android:id="@+id/go_back_recipes_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onGoBackToRecipesClicked"
+                android:text="@string/go_back_to_recipes" />
+
+            <Button
+                android:id="@+id/start_recipe_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onStartRecipeClicked"
+                android:text="@string/start_recipe" />
+        </LinearLayout>
+
+
     </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

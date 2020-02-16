@@ -103,12 +103,17 @@ public class RecipeOverviewFragment extends Fragment {
         TextView time_text = getView().findViewById(R.id.time_text_overview);
         TextView serving_text = getView().findViewById(R.id.people_text_overview);
         TextView ingredients_text = getView().findViewById(R.id.recipe_text_overview);
+        RatingBar ratingBar = getView().findViewById(R.id.ratingBar_overview);
+        TextView numberReviews_text = getView().findViewById(R.id.number_reviews_text);
 
         recipe_name_text.setText(name);
         difficulty_text.setText(difficulty);
         time_text.setText(time);
         serving_text.setText(serving);
         ingredients_text.setText(ingredients);
+        ratingBar.setRating(reviewsAvg);
+        String numberReviewsText = numberReviews + " Reviews";
+        numberReviews_text.setText(numberReviewsText);
         new RetrieveFeedTask().execute(image);
     }
 
