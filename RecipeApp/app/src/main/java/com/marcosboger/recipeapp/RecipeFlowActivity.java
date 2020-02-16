@@ -51,8 +51,10 @@ public class RecipeFlowActivity extends AppCompatActivity {
     private String[] recipeImage = new String[20];
     private String[] recipeVideo = new String[20];
     private String[] recipeIsFinal = new String[20];
+    private float recipeReviewAvg;
+    private int recipeNumberReviews;
     TextView text;
-    Button lastStepButton, nextStepButton, startButton;
+    Button lastStepButton, nextStepButton, startButton, finishRecipe;
     ImageView image;
     VideoView video;
     DataSnapshot steps;
@@ -64,10 +66,13 @@ public class RecipeFlowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_flow);
         recipeNumber = getIntent().getStringExtra("recipe_number");
+        recipeReviewAvg = getIntent().getFloatExtra("reviews_avg", 0);
+        recipeNumberReviews = getIntent().getIntExtra("number_reviews", 0);
         lastStepButton = findViewById(R.id.last_step_button);
         text = findViewById(R.id.recipe_text);
         nextStepButton = findViewById(R.id.next_step_button);
         startButton = findViewById(R.id.start_video_button);
+        finishRecipe = findViewById(R.id.finish_recipe_button);
         image = findViewById(R.id.recipe_image);
         video = findViewById(R.id.recipe_video);
         lastStepButton.setEnabled(false);
@@ -140,13 +145,17 @@ public class RecipeFlowActivity extends AppCompatActivity {
             video.setVisibility(View.VISIBLE);
             video.pause();
         }
-        if(recipeIsFinal[step].equals("true"))
+        if(recipeIsFinal[step].equals("true")){
             nextStepButton.setEnabled(false);
+            finishRecipe.setVisibility(View.VISIBLE);
+        }
     }
 
     public void onLastStepClicked(View view){
-        if(recipeIsFinal[step].equals("true"))
+        if(recipeIsFinal[step].equals("true")){
             nextStepButton.setEnabled(true);
+            finishRecipe.setVisibility(View.GONE);
+        }
         step--;
         paused = true;
         text.setText(recipeText[step]);
@@ -165,6 +174,15 @@ public class RecipeFlowActivity extends AppCompatActivity {
         }
         if(step == 0)
             lastStepButton.setEnabled(false);
+    }
+
+    public void onFinishRecipeClicked(View view){
+        Intent intent = new Intent(RecipeFlowActivity.this, ReviewActivity.class);
+        Log.d("tag", Integer.toString(recipeNumberReviews));
+        intent.putExtra("recipe_number", recipeNumber);
+        intent.putExtra("number_reviews", recipeNumberReviews);
+        intent.putExtra("reviews_avg", recipeReviewAvg);
+        startActivity(intent);
     }
 
     private Bitmap getBitmap(Drawable vectorDrawable) {

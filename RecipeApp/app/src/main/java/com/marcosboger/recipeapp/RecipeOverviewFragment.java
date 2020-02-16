@@ -14,7 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.net.URL;
 
@@ -29,6 +32,8 @@ public class RecipeOverviewFragment extends Fragment {
     private static final String ARG_PARAM3 = "serving";
     private static final String ARG_PARAM4 = "ingredients";
     private static final String ARG_PARAM5 = "image";
+    private static final String ARG_PARAM6 = "numberReviews";
+    private static final String ARG_PARAM7 = "reviewsAvg";
     // TODO: Rename and change types of parameters
     private String number;
     private String name;
@@ -37,6 +42,8 @@ public class RecipeOverviewFragment extends Fragment {
     private String serving;
     private String ingredients;
     private String image;
+    private Integer numberReviews;
+    private Float reviewsAvg;
     public RecipeOverviewFragment() {
         // Required empty public constructor
     }
@@ -49,7 +56,7 @@ public class RecipeOverviewFragment extends Fragment {
      * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RecipeOverviewFragment newInstance(String param, String param0, String param1, String param2, String param3, String param4, String param5) {
+    public static RecipeOverviewFragment newInstance(String param, String param0, String param1, String param2, String param3, String param4, String param5, Integer param6, Float param7) {
         RecipeOverviewFragment fragment = new RecipeOverviewFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM, param);
@@ -59,6 +66,8 @@ public class RecipeOverviewFragment extends Fragment {
         args.putString(ARG_PARAM3, param3);
         args.putString(ARG_PARAM4, param4);
         args.putString(ARG_PARAM5, param5);
+        args.putInt(ARG_PARAM6, param6);
+        args.putFloat(ARG_PARAM7, param7);
         fragment.setArguments(args);
         return fragment;
     }
@@ -73,6 +82,8 @@ public class RecipeOverviewFragment extends Fragment {
             serving = getArguments().getString(ARG_PARAM3);
             ingredients = getArguments().getString(ARG_PARAM4);
             image = getArguments().getString(ARG_PARAM5);
+            numberReviews = getArguments().getInt(ARG_PARAM6);
+            reviewsAvg = getArguments().getFloat(ARG_PARAM7);
         }
     }
 

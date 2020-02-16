@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:context=".ReviewActivity">
+
+    <TextView
+        android:id="@+id/rating_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please rate the recipe you just made" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="82dp"
+        tools:layout_editor_absoluteY="138dp"/>
+
+    <Button
+        android:id="@+id/rate_it_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate it"
+        android:onClick="onRateItClicked"
+        android:enabled="false"
+        tools:layout_editor_absoluteX="160dp"
+        tools:layout_editor_absoluteY="219dp" />
+
+    <Button
+        android:id="@+id/skip_it_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Skip it"
+        android:onClick="onSkipItClicked"
+        tools:layout_editor_absoluteX="164dp"
+        tools:layout_editor_absoluteY="300dp" />
+</LinearLayout>

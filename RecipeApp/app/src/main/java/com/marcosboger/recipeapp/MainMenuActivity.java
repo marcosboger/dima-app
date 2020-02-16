@@ -41,7 +41,9 @@ public class MainMenuActivity extends AppCompatActivity implements RecipeListFra
                 serving = dataSnapshot.child("serving").getValue(String.class);
                 ingredients = dataSnapshot.child("ingredients").getValue(String.class);
                 textImage =  dataSnapshot.child("image").getValue(String.class);
-                openFragment(RecipeOverviewFragment.newInstance(recipeNumber, name, difficulty, time, serving, ingredients, textImage));
+                numberReviews = dataSnapshot.child("reviews_number").getValue(Integer.class);
+                reviewsAvg = dataSnapshot.child("review_avg").getValue(Float.class);
+                openFragment(RecipeOverviewFragment.newInstance(recipeNumber, name, difficulty, time, serving, ingredients, textImage, numberReviews, reviewsAvg));
             }
 
             @Override
@@ -57,6 +59,8 @@ public class MainMenuActivity extends AppCompatActivity implements RecipeListFra
     private String userName;
     private DatabaseReference mDatabase;
     private String difficulty, time, serving, ingredients, textImage, name;
+    private int numberReviews;
+    private float reviewsAvg;
     private String recipeNumber;
     private Bitmap image;
 
@@ -128,6 +132,8 @@ public class MainMenuActivity extends AppCompatActivity implements RecipeListFra
     public void onStartRecipeClicked(View view){
         Intent intent = new Intent(MainMenuActivity.this, RecipeFlowActivity.class);
         intent.putExtra("recipe_number", recipeNumber);
+        intent.putExtra("number_reviews", numberReviews);
+        intent.putExtra("reviews_avg", reviewsAvg);
         startActivity(intent);
     }
 
@@ -144,7 +150,9 @@ public class MainMenuActivity extends AppCompatActivity implements RecipeListFra
                 serving = dataSnapshot.child("serving").getValue(String.class);
                 ingredients = dataSnapshot.child("ingredients").getValue(String.class);
                 textImage =  dataSnapshot.child("image").getValue(String.class);
-                openFragment(RecipeOverviewFragment.newInstance(recipeNumber, name, difficulty, time, serving, ingredients, textImage));
+                numberReviews = dataSnapshot.child("reviews_number").getValue(Integer.class);
+                reviewsAvg = dataSnapshot.child("review_avg").getValue(Float.class);
+                openFragment(RecipeOverviewFragment.newInstance(recipeNumber, name, difficulty, time, serving, ingredients, textImage, numberReviews, reviewsAvg));
             }
 
             @Override
