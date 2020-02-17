@@ -68,7 +68,7 @@ public class MainMenuActivity extends AppCompatActivity implements RecipeListFra
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        Recipe.initialize();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         bottomNavigation = findViewById(R.id.bottom_navigation);

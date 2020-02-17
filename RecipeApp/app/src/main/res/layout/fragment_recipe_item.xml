@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/item_number"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:layout_margin="@dimen/text_margin"
         android:src="@drawable/ic_fastfood_24px" />
 

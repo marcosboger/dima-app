@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recipe App</string>
+    <string name="app_name">Cook it up</string>
     <string name="email_address"></string>
     <string name="password">""</string>
     <string name="continue_with_email">Continue with Email</string>
