@@ -2,14 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".MainMenuActivity">
-
 
         <TextView
             android:id="@+id/recipe_name_overview"
@@ -133,15 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="20"
-            android:layout_marginBottom="100dp">
-
-            <Button
-                android:id="@+id/go_back_recipes_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onGoBackToRecipesClicked"
-                android:text="@string/go_back_to_recipes" />
+            android:layout_weight="20">
 
             <Button
                 android:id="@+id/start_recipe_button"
@@ -149,7 +141,20 @@
                 android:layout_height="wrap_content"
                 android:onClick="onStartRecipeClicked"
                 android:text="@string/start_recipe" />
+
         </LinearLayout>
+
+        <Button
+            android:id="@+id/go_back_recipes_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onGoBackToRecipesClicked"
+            android:text="@string/go_back_to_recipes"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_marginBottom="100dp"/>
 
 
     </LinearLayout>

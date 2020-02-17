@@ -10,11 +10,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ReviewActivity"></activity>
         <activity
             android:name=".RecipeFlowActivity"
-            android:noHistory="true"
             android:parentActivityName=".MainMenuActivity"
             android:screenOrientation="portrait" />
         <activity

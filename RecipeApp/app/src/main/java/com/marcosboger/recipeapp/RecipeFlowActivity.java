@@ -14,6 +14,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,6 +62,7 @@ public class RecipeFlowActivity extends AppCompatActivity {
     VideoView video;
     DataSnapshot steps;
     private String recipeNumber;
+    RotateAnimation anim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,14 @@ public class RecipeFlowActivity extends AppCompatActivity {
         video = findViewById(R.id.recipe_video);
         lastStepButton.setEnabled(false);
         nextStepButton.setEnabled(false);
-        playButtonBitmap = getBitmap(getResources().getDrawable(R.drawable.ic_play_arrow_24px));
+        playButtonBitmap = getBitmap(getResources().getDrawable(R.drawable.ic_refresh_red_24px));
+
+        anim = new RotateAnimation(0.0f, 360.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.setDuration(1500);
+
+        image.startAnimation(anim);
 
         mDatabase = FirebaseDatabase.getInstance().getReference("recipes").child(recipeNumber).child("steps");
 
@@ -108,12 +119,20 @@ public class RecipeFlowActivity extends AppCompatActivity {
             public void onPrepared(MediaPlayer mp) {
                 startButton.setEnabled(true);
                 startButton.setText(getString(R.string.start_video));
+                image.setImageBitmap(null);
+            }
+        });
+        video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                video.seekTo(0);
+                video.pause();
+                paused = true;
             }
         });
     }
 
     public void onStartVideoClicked(View view){
-        Log.d("RecipeFlowActivity",Boolean.toString(paused));
         if(paused){
             image.setImageBitmap(null);
             video.start();
@@ -121,12 +140,13 @@ public class RecipeFlowActivity extends AppCompatActivity {
         }
         else{
             video.pause();
-            image.setImageBitmap(playButtonBitmap);
+            //image.setImageBitmap(playButtonBitmap);
             paused = true;
         }
     }
 
     public void onNextStepClicked(View view){
+        image.setAnimation(null);
         if(step == 0)
             lastStepButton.setEnabled(true);
         step++;
@@ -144,6 +164,7 @@ public class RecipeFlowActivity extends AppCompatActivity {
             video.setVideoURI(Uri.parse(recipeVideo[step]));
             video.setVisibility(View.VISIBLE);
             video.pause();
+            image.startAnimation(anim);
         }
         if(recipeIsFinal[step].equals("true")){
             nextStepButton.setEnabled(false);
@@ -152,6 +173,7 @@ public class RecipeFlowActivity extends AppCompatActivity {
     }
 
     public void onLastStepClicked(View view){
+        image.setAnimation(null);
         if(recipeIsFinal[step].equals("true")){
             nextStepButton.setEnabled(true);
             finishRecipe.setVisibility(View.GONE);
@@ -171,6 +193,7 @@ public class RecipeFlowActivity extends AppCompatActivity {
             video.setVideoURI(Uri.parse(recipeVideo[step]));
             video.setVisibility(View.VISIBLE);
             video.pause();
+            image.startAnimation(anim);
         }
         if(step == 0)
             lastStepButton.setEnabled(false);
@@ -225,6 +248,7 @@ public class RecipeFlowActivity extends AppCompatActivity {
                 nextStepButton.setEnabled(true);
                 image.setImageBitmap(bitmapArray[0]);
                 text.setText(recipeText[0]);
+                image.setAnimation(null);
                 if(recipeVideo[0].equals("none")){
                     video.setVisibility(View.GONE);
                     startButton.setVisibility(View.GONE);

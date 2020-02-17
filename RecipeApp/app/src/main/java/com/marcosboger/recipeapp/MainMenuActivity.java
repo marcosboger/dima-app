@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainMenuActivity extends AppCompatActivity implements RecipeListFragment.OnListFragmentInteractionListener {
 
@@ -66,7 +68,7 @@ public class MainMenuActivity extends AppCompatActivity implements RecipeListFra
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Recipe.initialize();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         bottomNavigation = findViewById(R.id.bottom_navigation);
@@ -87,11 +89,6 @@ public class MainMenuActivity extends AppCompatActivity implements RecipeListFra
             }
         };
         mDatabase.addListenerForSingleValueEvent(nameListener);
-    }
-
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
     }
 
     public void openFragment(Fragment fragment) {
